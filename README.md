@@ -28,13 +28,13 @@ plt.xlabel("Time [ns]")
 
 The target class defines the velocity profile that will be recorded by the visar system (i.e. the shock front moving / interface velocity of a target of interest).
 
-This velocity profile is loaded during the initilization of the target instance. Two built-in profiles are availible for testing.  
+This velocity profile is loaded during the initialization of the target instance. Two built-in profiles are available for testing.  
 
- - `step` : a discontinious velocity jump
+ - `step` : a discontinuous velocity jump
  - `sigmoid` : a sigmoid-shaped velocity jump
  - `stationary` : 0 velocity change, used in generating reference images
 
-To help visulize the velocity profile, a helper plotting function is availible, and can be called via the following command:
+To help visualize the velocity profile, a helper plotting function is available, and can be called via the following command:
 
 ~~~python
 target.plot_velocity()
@@ -52,13 +52,13 @@ User-defined velocity profiles can be loaded. An example of how this is done is 
  - `sin_step`
  - `spatial_var_step`
 
-In this case, a callable function is defined, which must except a time value, and a spatial location. If the user defined function requires more argments, this can be simlified with use of a `lambda` function. e.g.
+In this case, a callable function is defined, which must except a time value, and a spatial location. If the user defined function requires more arguments, this can be simplified with use of a `lambda` function. e.g.
 
 ~~~python
 velocity_equation = lambda t, y : sin_step(20, .5, t, y, max_velocity=1)
 ~~~
 
-the function is then loaded into the target during the initilization of the target instance.
+the function is then loaded into the target during the initialization of the target instance.
 
 ~~~python
 target = Target(velocity_equation=velocity_equation)
@@ -74,7 +74,7 @@ The values must be less than `target._t` and `target._y`, currently these are ha
 
 ## Etalon class
 
-The `etalon` instance sets the VPF of the generated visar data, determined by twice the thickness (two passes through the etalon for a mach-zender interferometer) and the index of refraction:
+The `etalon` instance sets the VPF of the generated visar data, determined by twice the thickness (two passes through the etalon for a Mach-Zehnder interferometer) and the index of refraction:
 
 ~~~python
 etalon = Etalon(thickness=1, n=1.5195)
@@ -104,17 +104,17 @@ Interferometer(
  - `etalon` An Etalon instance, used in determining the VPF of the generated data
  - `tau` the slit opening on the streak camera, this sets the temporal resolution. 
 
-Generation of the desired data is then acomplished by calling the `output` class method.  
+Generation of the desired data is then accomplished by calling the `output` class method.  
 
 ~~~python
 sweep = interferometer.output(ray, target, noise=False)
 ~~~
 
-`output` excepts a `Ray` argument and a `Target` argument, and optional booliean argument to add noise to the generated data is also availible; however, this method is still in development. 
+`output` excepts a `Ray` argument and a `Target` argument, and optional boolean argument to add noise to the generated data is also available; however, this method is still in development. 
 
 ## Reference Shot
 
-A helper function is included to quickly generate a reference shot. This just generates the output from a stationalry target.
+A helper function is included to quickly generate a reference shot. This just generates the output from a stationary target.
 
 ~~~python
 reference_shot(
